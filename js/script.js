@@ -6,7 +6,7 @@ let total = 5000,
 const land = 5000,
   corp = 12000,
   cms = 4000,
-  changes = 10000,
+  changes = 1000,
   pages = 2500,
   tabLeft = document.querySelector(".tab-left"),
   tabRight = document.querySelector(".tab-right"),
@@ -23,21 +23,20 @@ const land = 5000,
 
 window.addEventListener("DOMContentLoaded", () => {
   tabLeft.addEventListener("click", () => {
-
     input.forEach(item => {
-      item.value = '';
+      item.value = "";
     });
 
-    blocksBlock.style.display = 'flex';
-    pagesBlock.style.display = 'none';
+    blocksBlock.style.display = "flex";
+    pagesBlock.style.display = "none";
 
-    tabLeft.classList.add('active');
-    tabRight.classList.remove('active');
+    tabLeft.classList.add("active");
+    tabRight.classList.remove("active");
 
-    if(changesCheck.checked){
+    if (changesCheck.checked) {
       changesCheck.checked = false;
     }
-    if(cmsCheck.checked){
+    if (cmsCheck.checked) {
       cmsCheck.checked = false;
     }
 
@@ -46,25 +45,81 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 
   tabRight.addEventListener("click", () => {
-
     input.forEach(item => {
-      item.value = '';
+      item.value = "";
     });
 
-    blocksBlock.style.display = 'none';
-    pagesBlock.style.display = 'flex';
+    blocksBlock.style.display = "none";
+    pagesBlock.style.display = "flex";
 
-    tabRight.classList.add('active');
-    tabLeft.classList.remove('active');
+    tabRight.classList.add("active");
+    tabLeft.classList.remove("active");
 
-    if(changesCheck.checked){
+    if (changesCheck.checked) {
       changesCheck.checked = false;
     }
-    if(cmsCheck.checked){
+    if (cmsCheck.checked) {
       cmsCheck.checked = false;
     }
 
     total = corp;
     totalValue.value = total;
+  });
+
+  counterBlock.addEventListener("change", () => {
+    counterHours.value = "";
+    counterRate.value = "";
+
+    total = counterBlock.value * blocks;
+    totalValue.value = total;
+  });
+
+  counterPages.addEventListener("change", () => {
+    counterHours.value = "";
+    counterRate.value = "";
+
+    total = counterPages.value * pages;
+    totalValue.value = total;
+  });
+
+  counterHours.addEventListener("change", () => {
+    counterBlock.value = "";
+    counterPages.value = "";
+
+    total = 0;
+    time = counterHours.value;
+    hourRate = time * counterRate.value;
+    total = hourRate;
+    totalValue.value = hourRate;
+  });
+
+  counterRate.addEventListener("change", () => {
+    counterBlock.value = "";
+    counterPages.value = "";
+
+    total = 0;
+    hourRate = time * counterRate.value;
+    total = hourRate;
+    totalValue.value = hourRate;
+  });
+
+  changesCheck.addEventListener("change", () => {
+    if (changesCheck.checked) {
+      total += changes;
+      totalValue.value = total;
+    } else{
+      total -= changes;
+      totalValue.value = total;
+    }
+  });
+
+  cmsCheck.addEventListener("change", () => {
+    if (cmsCheck.checked) {
+      total += cms;
+      totalValue.value = total;
+    } else{
+      total -= cms;
+      totalValue.value = total;
+    }
   });
 });
